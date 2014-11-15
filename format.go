@@ -294,7 +294,7 @@ func (f *stringFormatter) Format(calldepth int, r *Record, output io.Writer) err
 				v = r.Message()
 				break
 			case fmtVerbLongfile, fmtVerbShortfile:
-				_, file, line, ok := runtime.Caller(calldepth + 1)
+				_, file, line, ok := runtime.Caller(calldepth + 2)
 				if !ok {
 					file = "???"
 					line = 0
@@ -306,7 +306,7 @@ func (f *stringFormatter) Format(calldepth int, r *Record, output io.Writer) err
 				fmtVerbLongpkg, fmtVerbShortpkg:
 				// TODO cache pc
 				v = "???"
-				if pc, _, _, ok := runtime.Caller(calldepth + 1); ok {
+				if pc, _, _, ok := runtime.Caller(calldepth + 2); ok {
 					if f := runtime.FuncForPC(pc); f != nil {
 						v = formatFuncName(part.verb, f.Name())
 					}
